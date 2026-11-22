@@ -16,6 +16,13 @@ Tampermonkey reconoce el archivo `.user.js` y muestra su pantalla de instalació
 *Instalar*. Esa misma URL es la que consulta para las actualizaciones del script, así que no
 hace falta volver a pegar el código cuando salga una versión nueva.
 
+## Alojado en la web de TMDB Streaming
+
+DMM Studio también vive en el mismo dominio que el proyecto de streaming:
+
+- Panel de demostración: <https://tmdb-streaming-services.orkestr.run/dmm-studio/>
+- Instalar con un clic: <https://tmdb-streaming-services.orkestr.run/dmm-studio.user.js>
+
 ## Archivos
 
 | Archivo | Qué es |
