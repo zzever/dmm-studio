@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DMM Studio - panel de biblioteca para Debrid Media Manager
 // @namespace    https://debridmediamanager.com/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Interfaz nueva para Debrid Media Manager y Real-Debrid: cuenta, biblioteca con filtros, cache instantanea, enlaces de descarga y fichas de TMDB con posters. Reutiliza la sesion y las cookies que ya tienes en el navegador.
 // @author       Buffy
 // @match        https://debridmediamanager.com/*
@@ -24,7 +24,7 @@
 (function () {
   'use strict';
 
-  var VERSION = '1.1.0';
+  var VERSION = '1.1.1';
   var DEMO = !!window.DMM_STUDIO_DEMO;
   var HAS_GM = typeof GM_xmlhttpRequest === 'function';
   var RD_API = 'https://api.real-debrid.com/rest/1.0';
@@ -1124,30 +1124,33 @@ textarea.field::placeholder, input.field::placeholder { color: #656e80; }
 
   /* ================= fichas de demostración de TMDB ================= */
   var DEMO_TMDB = [
-    { re: /dune/i, item: { type: 'movie', title: 'Dune: parte dos', year: 2024, rating: 8.1, votes: 6312, genres: ['Ciencia ficción', 'Aventura'], overview: 'Paul Atreides se une a los Fremen para vengar a su familia y evitar un futuro terrible que solo él puede prever.' } },
-    { re: /severance/i, item: { type: 'tv', title: 'Severance', year: 2022, rating: 8.4, votes: 2140, genres: ['Drama', 'Misterio'], overview: 'Los empleados de Lumon Industries se someten a un procedimiento que separa sus recuerdos de trabajo de los personales.' } },
-    { re: /the[\s.]?bear/i, item: { type: 'tv', title: 'The Bear', year: 2022, rating: 8.6, votes: 1870, genres: ['Drama', 'Comedia'], overview: 'Un chef de alta cocina vuelve a Chicago para hacerse cargo del restaurante familiar.' } },
-    { re: /oppenheimer/i, item: { type: 'movie', title: 'Oppenheimer', year: 2023, rating: 8.1, votes: 9420, genres: ['Drama', 'Historia'], overview: 'La historia del físico que dirigió el Proyecto Manhattan y cambió el mundo para siempre.' } },
-    { re: /arcane/i, item: { type: 'tv', title: 'Arcane', year: 2021, rating: 8.7, votes: 3860, genres: ['Animación', 'Ciencia ficción'], overview: 'Dos hermanas acaban en bandos opuestos de una guerra entre la ciudad alta de Piltover y la baja de Zaun.' } },
-    { re: /past[\s.]?lives/i, item: { type: 'movie', title: 'Vidas pasadas', year: 2023, rating: 7.8, votes: 1240, genres: ['Romance', 'Drama'], overview: 'Dos amigos de la infancia se reencuentran en Nueva York veinte años después de separarse.' } },
-    { re: /blade[\s.]?runner/i, item: { type: 'movie', title: 'Blade Runner 2049', year: 2017, rating: 7.6, votes: 12800, genres: ['Ciencia ficción', 'Drama'], overview: 'Un blade runner descubre un secreto enterrado que puede hundir lo que queda de la sociedad.' } },
-    { re: /sh[oō]gun/i, item: { type: 'tv', title: 'Shōgun', year: 2024, rating: 8.6, votes: 1580, genres: ['Drama', 'Guerra'], overview: 'En el Japón de 1600, un marinero inglés llega a una tierra al borde de la guerra civil.' } },
-    { re: /perfect[\s.]?days/i, item: { type: 'movie', title: 'Perfect Days', year: 2023, rating: 7.9, votes: 720, genres: ['Drama'], overview: 'Un limpiador de baños públicos de Tokio encuentra belleza en los pequeños rituales de su rutina.' } },
-    { re: /chernobyl/i, item: { type: 'tv', title: 'Chernobyl', year: 2019, rating: 8.7, votes: 6100, genres: ['Drama', 'Historia'], overview: 'La verdadera historia del accidente nuclear de 1986 y de quienes intentaron ocultarlo.' } },
-    { re: /furiosa/i, item: { type: 'movie', title: 'Furiosa: de la saga Mad Max', year: 2024, rating: 7.6, votes: 3420, genres: ['Acción', 'Aventura'], overview: 'Furiosa es arrancada de su hogar y debe sobrevivir en un desierto gobernado por señores de la guerra.' } },
-    { re: /substance/i, item: { type: 'movie', title: 'La sustancia', year: 2024, rating: 7.2, votes: 2890, genres: ['Terror', 'Ciencia ficción'], overview: 'Una celebridad en decadencia prueba un tratamiento que genera una versión más joven de sí misma.' } },
-    { re: /anora/i, item: { type: 'movie', title: 'Anora', year: 2024, rating: 7.1, votes: 980, genres: ['Drama', 'Comedia'], overview: 'Una trabajadora sexual de Brooklyn se casa con el hijo de un oligarca y todo se complica.' } },
-    { re: /nosferatu/i, item: { type: 'movie', title: 'Nosferatu', year: 2024, rating: 7.3, votes: 1460, genres: ['Terror', 'Fantasía'], overview: 'Una joven es perseguida por una criatura milenaria enamorada de ella.' } }
+    { re: /dune/i, item: { poster: 'v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg', tmdb: 693134, type: 'movie', title: 'Dune: parte dos', year: 2024, rating: 8.1, votes: 6312, genres: ['Ciencia ficción', 'Aventura'], overview: 'Paul Atreides se une a los Fremen para vengar a su familia y evitar un futuro terrible que solo él puede prever.' } },
+    { re: /severance/i, item: { poster: 'wrZjYKxObEaWZmjB7scQMYo40o8.jpg', tmdb: 95396, type: 'tv', title: 'Severance', year: 2022, rating: 8.4, votes: 2140, genres: ['Drama', 'Misterio'], overview: 'Los empleados de Lumon Industries se someten a un procedimiento que separa sus recuerdos de trabajo de los personales.' } },
+    { re: /the[\s.]?bear/i, item: { poster: '5TZnk9ryzfcNlsCOghURfZsBong.jpg', tmdb: 136315, type: 'tv', title: 'The Bear', year: 2022, rating: 8.6, votes: 1870, genres: ['Drama', 'Comedia'], overview: 'Un chef de alta cocina vuelve a Chicago para hacerse cargo del restaurante familiar.' } },
+    { re: /oppenheimer/i, item: { poster: 'mJRUREPjTqqMEKwEiM2sdmIGngz.jpg', tmdb: 872585, type: 'movie', title: 'Oppenheimer', year: 2023, rating: 8.1, votes: 9420, genres: ['Drama', 'Historia'], overview: 'La historia del físico que dirigió el Proyecto Manhattan y cambió el mundo para siempre.' } },
+    { re: /arcane/i, item: { poster: '87C0wecB8bHb1PsrKBI4kJiEkgV.jpg', tmdb: 94605, type: 'tv', title: 'Arcane', year: 2021, rating: 8.7, votes: 3860, genres: ['Animación', 'Ciencia ficción'], overview: 'Dos hermanas acaban en bandos opuestos de una guerra entre la ciudad alta de Piltover y la baja de Zaun.' } },
+    { re: /past[\s.]?lives/i, item: { poster: '7yv18dES71PhNqPZE6mvFPkWiha.jpg', tmdb: 1001946, type: 'movie', title: 'Vidas pasadas', year: 2023, rating: 7.8, votes: 1240, genres: ['Romance', 'Drama'], overview: 'Dos amigos de la infancia se reencuentran en Nueva York veinte años después de separarse.' } },
+    { re: /blade[\s.]?runner/i, item: { poster: 'cOt8SQwrxpoTv9Bc3kyce3etkZX.jpg', tmdb: 335984, type: 'movie', title: 'Blade Runner 2049', year: 2017, rating: 7.6, votes: 12800, genres: ['Ciencia ficción', 'Drama'], overview: 'Un blade runner descubre un secreto enterrado que puede hundir lo que queda de la sociedad.' } },
+    { re: /sh[oō]gun/i, item: { poster: 'uIoDvVOQaKjSfz2oihkVS8M7l1v.jpg', tmdb: 126308, type: 'tv', title: 'Shōgun', year: 2024, rating: 8.6, votes: 1580, genres: ['Drama', 'Guerra'], overview: 'En el Japón de 1600, un marinero inglés llega a una tierra al borde de la guerra civil.' } },
+    { re: /perfect[\s.]?days/i, item: { poster: 'efnvsuEdkdwiWR7WyQ2QgcGt8mM.jpg', tmdb: 976893, type: 'movie', title: 'Perfect Days', year: 2023, rating: 7.9, votes: 720, genres: ['Drama'], overview: 'Un limpiador de baños públicos de Tokio encuentra belleza en los pequeños rituales de su rutina.' } },
+    { re: /chernobyl/i, item: { poster: 'hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg', tmdb: 87108, type: 'tv', title: 'Chernobyl', year: 2019, rating: 8.7, votes: 6100, genres: ['Drama', 'Historia'], overview: 'La verdadera historia del accidente nuclear de 1986 y de quienes intentaron ocultarlo.' } },
+    { re: /furiosa/i, item: { poster: 'tGHUlykWn9V2IIQ4ZaATIAq9VLB.jpg', tmdb: 786892, type: 'movie', title: 'Furiosa: de la saga Mad Max', year: 2024, rating: 7.6, votes: 3420, genres: ['Acción', 'Aventura'], overview: 'Furiosa es arrancada de su hogar y debe sobrevivir en un desierto gobernado por señores de la guerra.' } },
+    { re: /substance/i, item: { poster: '4cJyrYA7I29QabrQ0S89N1iWUV2.jpg', tmdb: 933260, type: 'movie', title: 'La sustancia', year: 2024, rating: 7.2, votes: 2890, genres: ['Terror', 'Ciencia ficción'], overview: 'Una celebridad en decadencia prueba un tratamiento que genera una versión más joven de sí misma.' } },
+    { re: /anora/i, item: { poster: 'n5wEFSLkm2fCtN0FVAuphrCAjf8.jpg', tmdb: 1064213, type: 'movie', title: 'Anora', year: 2024, rating: 7.1, votes: 980, genres: ['Drama', 'Comedia'], overview: 'Una trabajadora sexual de Brooklyn se casa con el hijo de un oligarca y todo se complica.' } },
+    { re: /nosferatu/i, item: { poster: 'jivUhECegXI3OYtPVflWoIDtENt.jpg', tmdb: 426063, type: 'movie', title: 'Nosferatu', year: 2024, rating: 7.3, votes: 1460, genres: ['Terror', 'Fantasía'], overview: 'Una joven es perseguida por una criatura milenaria enamorada de ella.' } }
   ];
 
   function demoTmdb(filename) {
     var match = DEMO_TMDB.filter(function (entry) { return entry.re.test(String(filename || '')); })[0];
     if (!match) return null;
     return {
-      id: 0, type: match.item.type, title: match.item.title, original: match.item.title,
+      id: match.item.tmdb, type: match.item.type, title: match.item.title, original: match.item.title,
       year: match.item.year, overview: match.item.overview,
-      poster: null, posterBig: null, rating: match.item.rating, votes: match.item.votes,
-      genres: match.item.genres, url: 'https://www.themoviedb.org/'
+      poster: match.item.poster ? TMDB_IMG + '/w200' + match.item.poster : null,
+      posterBig: match.item.poster ? TMDB_IMG + '/w342' + match.item.poster : null,
+      rating: match.item.rating, votes: match.item.votes,
+      genres: match.item.genres,
+      url: 'https://www.themoviedb.org/' + (match.item.type === 'tv' ? 'tv' : 'movie') + '/' + match.item.tmdb
     };
   }
 

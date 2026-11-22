@@ -36,6 +36,7 @@
   p.lead { margin: 0 0 26px; color: #8b94a8; font-size: 14px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 16px; }
   .poster {
+    background-size: cover; background-position: center;
     aspect-ratio: 2 / 3; border-radius: 14px; border: 1px solid rgba(255, 255, 255, .07);
     background: linear-gradient(160deg, #171b26, #0d1017); position: relative; overflow: hidden;
   }
@@ -72,15 +73,31 @@
       <b>Vista previa de la interfaz.</b> Los datos son de demostración y no se hace ninguna petición a Real-Debrid.
       Abre el panel con el botón flotante de la esquina o con <b>Ctrl + Shift + D</b>. Prueba los filtros,
       "Archivos", "Enlaces", el buscador y la vista "Añadir". Las fichas de TMDB (año, nota y sinopsis) también
-      son simuladas; con tu clave real aparecerían los pósters.
+      son de demostración, pero los pósters se cargan de verdad desde TMDB.
     </div>
   </main>
 
   <script>
-    var titles = ['Dune: Part Two', 'Severance', 'The Bear', 'Oppenheimer', 'Arcane', 'Past Lives', 'Blade Runner 2049',
-      'Shōgun', 'Perfect Days', 'Chernobyl', 'Furiosa', 'The Substance', 'Anora', 'Nosferatu', 'Sicario', 'Arrival'];
-    document.getElementById('grid').innerHTML = titles.map(function (title) {
-      return '<div class="poster"><span>' + title + '</span></div>';
+    var titles = [
+      ['Dune: Part Two', 'v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg'],
+      ['Severance', 'wrZjYKxObEaWZmjB7scQMYo40o8.jpg'],
+      ['The Bear', '5TZnk9ryzfcNlsCOghURfZsBong.jpg'],
+      ['Oppenheimer', 'mJRUREPjTqqMEKwEiM2sdmIGngz.jpg'],
+      ['Arcane', '87C0wecB8bHb1PsrKBI4kJiEkgV.jpg'],
+      ['Past Lives', '7yv18dES71PhNqPZE6mvFPkWiha.jpg'],
+      ['Blade Runner 2049', 'cOt8SQwrxpoTv9Bc3kyce3etkZX.jpg'],
+      ['Shōgun', 'uIoDvVOQaKjSfz2oihkVS8M7l1v.jpg'],
+      ['Perfect Days', 'efnvsuEdkdwiWR7WyQ2QgcGt8mM.jpg'],
+      ['Chernobyl', 'hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg'],
+      ['Furiosa', 'tGHUlykWn9V2IIQ4ZaATIAq9VLB.jpg'],
+      ['The Substance', '4cJyrYA7I29QabrQ0S89N1iWUV2.jpg'],
+      ['Anora', 'n5wEFSLkm2fCtN0FVAuphrCAjf8.jpg'],
+      ['Nosferatu', 'jivUhECegXI3OYtPVflWoIDtENt.jpg'],
+      ['Sicario', 'mpFhUy0aiDPIF0lN8Xpg0DeNQSD.jpg'],
+      ['Arrival', 'tbVITeytclB4JKx2LxxasrCCmZx.jpg']
+    ];
+    document.getElementById('grid').innerHTML = titles.map(function (row) {
+      return '<div class="poster" style="background-image:url(https://image.tmdb.org/t/p/w342/' + row[1] + ')"><span>' + row[0] + '</span></div>';
     }).join('');
 
     window.DMM_STUDIO_DEMO = true;
