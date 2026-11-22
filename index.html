@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DMM Studio · vista previa</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: #e7ebf5;
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(139, 92, 246, .22), transparent 60%),
+      radial-gradient(800px 460px at 92% 4%, rgba(34, 211, 238, .16), transparent 60%),
+      #06080d;
+  }
+  .fakebar {
+    display: flex; align-items: center; gap: 22px; padding: 14px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, .07); background: rgba(10, 13, 19, .72);
+    backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 2;
+  }
+  .fakelogo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.02em; }
+  .fakelogo i {
+    width: 26px; height: 26px; border-radius: 8px; display: block;
+    background: linear-gradient(140deg, #8b5cf6, #22d3ee);
+  }
+  .fakebar nav { display: flex; gap: 18px; font-size: 13px; color: #9aa4b8; }
+  .fakebar nav span.on { color: #fff; }
+  .fakeuser {
+    margin-left: auto; width: 30px; height: 30px; border-radius: 10px;
+    background: linear-gradient(140deg, #a78bfa, #22d3ee); color: #080b11;
+    display: grid; place-items: center; font-size: 12px; font-weight: 800;
+  }
+  main { padding: 34px 28px 90px; max-width: 1180px; }
+  h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -.03em; }
+  p.lead { margin: 0 0 26px; color: #8b94a8; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 16px; }
+  .poster {
+    aspect-ratio: 2 / 3; border-radius: 14px; border: 1px solid rgba(255, 255, 255, .07);
+    background: linear-gradient(160deg, #171b26, #0d1017); position: relative; overflow: hidden;
+  }
+  .poster::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .55));
+  }
+  .poster span { position: absolute; left: 10px; bottom: 9px; font-size: 11px; color: #b9c0d0; z-index: 1; }
+  .note {
+    margin-top: 26px; padding: 14px 16px; border-radius: 14px; font-size: 12.5px; color: #8b94a8;
+    border: 1px dashed rgba(255, 255, 255, .12); background: rgba(255, 255, 255, .02); max-width: 720px;
+    line-height: 1.6;
+  }
+  .note b { color: #cdd5e5; font-weight: 600; }
+  @media (max-width: 720px) {
+    .fakebar { flex-wrap: wrap; gap: 12px; padding: 12px 16px; }
+    .fakebar nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 2px; }
+    main { padding: 22px 16px 80px; }
+    h1 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+  <div class="fakebar">
+    <div class="fakelogo"><i></i> Debrid Media Manager</div>
+    <nav><span class="on">Library</span><span>Search</span><span>Calendar</span><span>Hashlists</span><span>Settings</span></nav>
+    <div class="fakeuser">E</div>
+  </div>
+  <main>
+    <h1>Library</h1>
+    <p class="lead">Página simulada de Debrid Media Manager para ver el panel de DMM Studio sobre un fondo real.</p>
+    <div class="grid" id="grid"></div>
+    <div class="note">
+      <b>Vista previa de la interfaz.</b> Los datos son de demostración y no se hace ninguna petición a Real-Debrid.
+      Abre el panel con el botón flotante de la esquina o con <b>Ctrl + Shift + D</b>. Prueba los filtros,
+      "Archivos", "Enlaces", el buscador y la vista "Añadir". Las fichas de TMDB (año, nota y sinopsis) también
+      son simuladas; con tu clave real aparecerían los pósters.
+    </div>
+  </main>
+
+  <script>
+    var titles = ['Dune: Part Two', 'Severance', 'The Bear', 'Oppenheimer', 'Arcane', 'Past Lives', 'Blade Runner 2049',
+      'Shōgun', 'Perfect Days', 'Chernobyl', 'Furiosa', 'The Substance', 'Anora', 'Nosferatu', 'Sicario', 'Arrival'];
+    document.getElementById('grid').innerHTML = titles.map(function (title) {
+      return '<div class="poster"><span>' + title + '</span></div>';
+    }).join('');
+
+    window.DMM_STUDIO_DEMO = true;
+    window.DMM_STUDIO_OPEN = true;
+  </script>
+  <script src="dmm-studio.user.js"></script>
+</body>
+</html>
